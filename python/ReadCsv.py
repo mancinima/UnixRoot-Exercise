@@ -20,7 +20,8 @@ def read_csv(filename):
 #create a function ordering by date (direct o inverted)
 def sort_entries(df, reverse=False):
     try:
-        df['Date of birth'] = pd.to_datetime(df['Date of birth'])
+        df['Date of birth'] = pd.to_datetime(df['Date of birth'], dayfirst=True, errors='coerce')
+        df.dropna(subset=['Date of birth'], inplace=True)
         sorted_df = df.sort_values(by='Date of birth', ascending=not reverse)
         return sorted_df
     except KeyError:
